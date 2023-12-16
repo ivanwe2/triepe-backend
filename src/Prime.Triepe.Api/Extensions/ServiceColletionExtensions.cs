@@ -17,7 +17,6 @@ namespace Prime.Triepe.Api.Extenions
             => services.AddAutoMapper(mc =>
                 {
                     mc.AddExpressionMapping();
-                    mc.AddProfile(new Mapper.MapperProfile());
                     mc.AddProfile(new Data.Mapper.MapperProfile());
                 });
 
