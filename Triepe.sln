@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prime.Triepe.Api", "src\Prime.Triepe.Api\Prime.Triepe.Api.csproj", "{36F3C5D2-2613-4F9A-B9D8-5E2B8E286E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triepe.Api", "src\Prime.Triepe.Api\Triepe.Api.csproj", "{36F3C5D2-2613-4F9A-B9D8-5E2B8E286E36}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triepe.Domain", "src\Prime.Triepe.Domain\Triepe.Domain.csproj", "{8327A5DA-6CCA-402D-8463-0922149B9651}"
 EndProject
