@@ -11,7 +11,8 @@ namespace Triepe.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Test()
         {
-            BadHttpRequestException;
+            BadHttpRequestException; ;
+            try fail
             return Ok();
         }
     }
