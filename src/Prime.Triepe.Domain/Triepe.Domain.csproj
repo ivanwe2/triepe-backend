@@ -4,4 +4,9 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Abstractions\Services\" />
+      <Folder Include="Dtos\" />
+    </ItemGroup>
+
 </Project>
