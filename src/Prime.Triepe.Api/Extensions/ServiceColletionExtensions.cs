@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Prime.Triepe.Data;
+using Triepe.Data;
 
 namespace Prime.Triepe.Api.Extenions
 {

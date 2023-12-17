@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Prime.Triepe.Data;
+using Triepe.Data;
 
 namespace Prime.Triepe.Api.Extenions
 {
