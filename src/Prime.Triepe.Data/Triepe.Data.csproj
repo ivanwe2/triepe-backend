@@ -13,4 +13,9 @@
       <ProjectReference Include="..\Prime.Triepe.Domain\Triepe.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Mapper\" />
+      <Folder Include="Repositories\" />
+    </ItemGroup>
+
 </Project>
