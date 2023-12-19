@@ -11,6 +11,7 @@ using Serilog;
 using Serilog.Events;
 using System.Collections.Generic;
 using System.Reflection;
+using Triepe.Api.AutofacModules;
 
 //Log.Logger = new LoggerConfiguration()
 //    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -20,17 +21,14 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host
-    .UseServiceProviderFactory(new AutofacServiceProviderFactory());
-    //.ConfigureContainer<ContainerBuilder>(autofacBuilder =>
-    //{
-    //    autofacBuilder.RegisterModule<ServicesModule>();
-    //    autofacBuilder.RegisterModule<RepositoriesModule>();
-    //    autofacBuilder.RegisterModule<FactoriesModule>();
-    //    autofacBuilder.RegisterModule<ExtensionsModule>();
-    //    autofacBuilder.RegisterModule<ProvidersModiule>();
-    //    autofacBuilder.RegisterModule<HelpersModule>();
-    //    autofacBuilder.RegisterModule<SeedersModule>();
-    //})
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(autofacBuilder =>
+    {
+        autofacBuilder.RegisterModule<ServicesModule>();
+        autofacBuilder.RegisterModule<RepositoriesModule>();
+        autofacBuilder.RegisterModule<FactoriesModule>();
+        autofacBuilder.RegisterModule<ProvidersModule>();
+    });
     //.UseSerilog((context, services, configuration) =>
     //    configuration
     //      .ReadFrom.Configuration(context.Configuration)
