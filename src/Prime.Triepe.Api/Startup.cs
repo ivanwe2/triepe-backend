@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Prime.Triepe.Api.Extenions;
 using Serilog;
 using Serilog.Events;
 using System.Collections.Generic;
 using System.Reflection;
 using Triepe.Api.AutofacModules;
+using FluentValidation;
 
 //Log.Logger = new LoggerConfiguration()
 //    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -35,7 +35,7 @@ builder.Host
     //      .ReadFrom.Services(services));
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-//builder.Services.AddValidatorsFromAssembly(Assembly.Load("Prime.Progreso.Domain"));
+builder.Services.AddValidatorsFromAssembly(Assembly.Load("Triepe.Domain"));
 
 builder.Services.AddControllers();
 //builder.Services.ConfigureCustomModelStateResponseFactory();

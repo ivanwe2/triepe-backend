@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Triepe.Domain.Dtos.PictureDtos
 {
-    internal class PictureRequestDto
+    public class PictureRequestDto
     {
         public byte[] Bytes { get; set; }
         public string Description { get; set; }
