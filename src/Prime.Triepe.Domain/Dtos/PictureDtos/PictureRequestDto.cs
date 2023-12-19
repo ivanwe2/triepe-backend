@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Triepe.Data.Entities.Base;
 
-namespace Triepe.Data.Entities
+namespace Triepe.Domain.Dtos.PictureDtos
 {
-    public class Picture : BaseEntity
+    internal class PictureRequestDto
     {
         public byte[] Bytes { get; set; }
         public string Description { get; set; }

@@ -13,15 +13,13 @@ namespace Triepe.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Picture>()
-                .HasOne(p => p.Product)
-                .WithMany()
-                .HasForeignKey(p => p.ProductId);
-
             modelBuilder.Entity<Product>()
-                .HasMany(p => p.Pictures)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
+                .Navigation(p => p.Pictures);
+
+            //modelBuilder.Entity<Picture>()
+            //    .HasOne(p => p.Product)
+            //    .WithMany()
+            //    .HasForeignKey(p => p.ProductId);
 
             base.OnModelCreating(modelBuilder);
         }

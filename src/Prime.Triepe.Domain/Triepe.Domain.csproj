@@ -6,7 +6,10 @@
 
     <ItemGroup>
       <Folder Include="Abstractions\Services\" />
-      <Folder Include="Dtos\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.8.1" />
     </ItemGroup>
 
 </Project>
