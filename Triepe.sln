@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triepe.Data", "src\Prime.Tr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EA8F2B0F-B520-4120-B2C1-CE982BEBDBE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triepe.Services.Test", "tests\Triepe.Services.Test\Triepe.Services.Test.csproj", "{9FB05642-BA2E-494E-8A2A-59E942208052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Triepe.Services.Test", "tests\Triepe.Services.Test\Triepe.Services.Test.csproj", "{9FB05642-BA2E-494E-8A2A-59E942208052}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

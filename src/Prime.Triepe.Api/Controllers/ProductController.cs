@@ -12,7 +12,7 @@ namespace Triepe.Api.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
 
@@ -26,7 +26,7 @@ namespace Triepe.Api.Controllers
         {
             var createdProduct = await _productService.CreateAsync(product);
 
-            return CreatedAtAction(nameof(GetProductAsync), new { id = createdProduct.Id }, createdProduct);
+            return CreatedAtAction(nameof(GetProductAsync), new{ id = createdProduct.Id }, createdProduct);
         }
 
         [HttpGet("{id}")]

@@ -37,7 +37,8 @@ builder.Host
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddValidatorsFromAssembly(Assembly.Load("Triepe.Domain"));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddMvcOptions(options => options.SuppressAsyncSuffixInActionNames = false);
 //builder.Services.ConfigureCustomModelStateResponseFactory();
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

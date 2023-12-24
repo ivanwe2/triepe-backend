@@ -8,5 +8,11 @@ namespace Triepe.Domain.Dtos.PictureDtos
 {
     public class PictureResponseDto : BaseDto
     {
+        public string FileName { get; set; }
+
+        public string FilePath { get; set; }
+
+        public byte[] Bytes { get; set; }
+
     }
 }
