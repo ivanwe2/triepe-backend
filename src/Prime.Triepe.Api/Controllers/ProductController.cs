@@ -12,7 +12,7 @@ namespace Triepe.Api.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    public class ProductController : Controller
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
 
@@ -61,6 +61,5 @@ namespace Triepe.Api.Controllers
 
             return NoContent();
         }
-
     }
 }

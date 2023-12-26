@@ -14,7 +14,8 @@ namespace Triepe.Data.Mapper
     {
         public PictureProfile() {
             CreateMap<PictureRequestDto, Picture>();
-            CreateMap<Picture, PictureResponseDto>();
+            CreateMap<Picture, PictureResponseDto>()
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => Convert.ToBase64String(src.Bytes)));
         }
 
     }

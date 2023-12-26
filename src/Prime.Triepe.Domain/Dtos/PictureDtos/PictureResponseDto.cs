@@ -12,7 +12,7 @@ namespace Triepe.Domain.Dtos.PictureDtos
 
         public string FilePath { get; set; }
 
-        public byte[] Bytes { get; set; }
+        public string Content { get; set; }
 
     }
 }

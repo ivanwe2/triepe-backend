@@ -13,7 +13,6 @@ namespace Triepe.Data.Repositories
     internal class PictureRepository : BaseRepository<Picture>, IPictureRepository
     {
         public PictureRepository(TriepeDbContext dbContext, IMapper mapper) : base(dbContext, mapper)
-        {
-        }
+        {}
     }
 }
