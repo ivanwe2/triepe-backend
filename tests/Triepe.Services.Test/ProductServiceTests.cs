@@ -1,6 +1,5 @@
 using AutoFixture;
 using Moq;
-using System.ComponentModel.DataAnnotations;
 using Triepe.Domain.Abstractions.Providers;
 using Triepe.Domain.Abstractions.Repositories;
 using Triepe.Domain.Abstractions.Services;
@@ -174,6 +173,5 @@ namespace Triepe.Services.Test
             // Assert
             await Assert.ThrowsAsync<ArgumentNullException>(a);
         }
-
     }
 }

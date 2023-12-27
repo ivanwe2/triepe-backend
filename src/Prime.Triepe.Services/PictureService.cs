@@ -33,7 +33,7 @@ namespace Triepe.Services
 
         public async Task<PictureResponseDto> CreateAsync(PictureCreateRequestForm requestForm)
         {
-            EnsureExistingProduct(requestForm.ProductId);
+            await EnsureExistingProduct(requestForm.ProductId);
 
             var dto = new PictureRequestDto()
             {
@@ -92,11 +92,11 @@ namespace Triepe.Services
                 throw new ArgumentNullException(nameof(id));
         }
 
-        private async void EnsureExistingProduct(Guid productId)
+        private async Task EnsureExistingProduct(Guid productId)
         {
             if(!await _productRepository.HasAnyAsync(productId))
             {
-                throw new NotFoundException("Product was not found!");
+                throw new Domain.Exceptions.NotFoundException("Product was not found!");
             }
         }
 
