@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Triepe.Domain.Exceptions
 {
-    public interface ICustomException
+    public class CustomException : Exception
     {
-        public HttpStatusCode StatusCode { get; }
-        public string Message { get; }
+        public HttpStatusCode StatusCode { get; init; }
 
+        public CustomException(string message)
+            : base(message)
+        { }
     }
 }

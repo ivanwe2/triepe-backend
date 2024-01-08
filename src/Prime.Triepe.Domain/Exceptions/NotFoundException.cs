@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Triepe.Domain.Exceptions
 {
-    public class NotFoundException : Exception
+    public class NotFoundException : CustomException
     {
         public NotFoundException(string message)
             : base(message)
-        {}
+        {
+            StatusCode = System.Net.HttpStatusCode.NotFound;
+        }
     }
 }

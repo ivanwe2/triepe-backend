@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System;
 using Triepe.Domain.Exceptions;
+using Triepe.Api.Extensions;
 
 namespace Triepe.Api.Middleware
 {
@@ -14,6 +15,7 @@ namespace Triepe.Api.Middleware
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
+        private const string PATH_NOT_FOUND_MESSAGE = "Request path was not found!";
         public ExceptionHandlingMiddleware(
             RequestDelegate next, 
             ILogger<ExceptionHandlingMiddleware> logger)
@@ -24,50 +26,30 @@ namespace Triepe.Api.Middleware
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-            string detail = "";
-
             try
             {
                 await _next(httpContext);
 
                 if (httpContext.Response.StatusCode == 404)
                 {
-                    statusCode = (HttpStatusCode)httpContext.Response.StatusCode;
-                    detail = "Request path was not found";
-                    await HandleExceptionAsync(httpContext, statusCode, detail);
+                    _logger.LogError(PATH_NOT_FOUND_MESSAGE);
+
+                    await HandleExceptionAsync(httpContext, HttpStatusCode.NotFound, PATH_NOT_FOUND_MESSAGE);
                 }
+            }
+            catch (CustomException ex)
+            {
+                _logger.LogError($"Exception occured: {ex}");
+
+                await HandleExceptionAsync(httpContext, ex.StatusCode, ex.Message);
             }
             catch (Exception ex)
             {
-                switch (ex)
-                {
-                    case ArgumentNullException:
-                        statusCode = HttpStatusCode.BadRequest;
-                        detail = ex.Message;
-                        break;
-                    case ValidationException:
-                        statusCode = HttpStatusCode.BadRequest;
-                        detail = ex.Message;
-                        break;
-                    case NotFoundException:
-                        statusCode = HttpStatusCode.NotFound;
-                        detail = ex.Message;
-                        break;
-                    case NoExistingValidatorException:
-                        statusCode = HttpStatusCode.BadRequest;
-                        detail = ex.Message;
-                        break;
-                    default:
-                        statusCode = HttpStatusCode.InternalServerError;
-                        detail = "Internal Server Error.";
-                        break;
-                }
-
                 _logger.LogError($"Exception occured: {ex}");
 
-                await HandleExceptionAsync(httpContext, statusCode, detail);
+                await HandleExceptionAsync(httpContext, HttpStatusCode.InternalServerError, "");
             }
+            
         }
         private async Task HandleExceptionAsync(HttpContext context, HttpStatusCode code, string detail)
         {
@@ -81,7 +63,7 @@ namespace Triepe.Api.Middleware
                 Status = context.Response.StatusCode,
                 Detail = detail,
                 Instance = context.Request.Path
-            }.ToString());
+            }.CustomJsonSerialization());
         }
     }
 }

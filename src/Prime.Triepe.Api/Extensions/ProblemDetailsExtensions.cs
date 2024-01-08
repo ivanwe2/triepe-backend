@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Triepe.Domain.Exceptions;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Triepe.Api.Extensions
 {
     public static class ProblemDetailsExtensions
     {
-        public static IResult ToProblemDetails(this ProblemDetails problemDetails, ICustomException exception)
-        {
-
-        }
+        public static string CustomJsonSerialization(this ProblemDetails problemDetails)
+            => JsonSerializer.Serialize(problemDetails, new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
     }
 }
