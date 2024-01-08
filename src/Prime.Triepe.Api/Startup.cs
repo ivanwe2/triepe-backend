@@ -51,13 +51,14 @@ builder.Services.AddEndpointsApiExplorer()
                 .AddTriepeDbContext(builder.Configuration.GetConnectionString("Default"))
                 .AddCors()
                 .AddLogging()
-                .AddHttpContextAccessor();
+                .AddHttpContextAccessor()
+                .AddProblemDetails();
 
 //builder.Services.AddSwaggerGen(c => { c.EnableAnnotations(); });
 
 var app = builder.Build();
 
-//app.ConfigureCustomExceptionMiddleware();
+app.UseCustomExceptionMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
