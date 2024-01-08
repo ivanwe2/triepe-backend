@@ -7,17 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Prime.Triepe.Api.Extenions;
 using Serilog;
-using Serilog.Events;
-using System.Collections.Generic;
 using System.Reflection;
 using Triepe.Api.AutofacModules;
 using FluentValidation;
-
-//Log.Logger = new LoggerConfiguration()
-//    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-//    .Enrich.FromLogContext()
-//    .WriteTo.Console()
-//    .CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host
@@ -28,11 +20,11 @@ builder.Host
         autofacBuilder.RegisterModule<RepositoriesModule>();
         autofacBuilder.RegisterModule<FactoriesModule>();
         autofacBuilder.RegisterModule<ProvidersModule>();
-    });
-    //.UseSerilog((context, services, configuration) =>
-    //    configuration
-    //      .ReadFrom.Configuration(context.Configuration)
-    //      .ReadFrom.Services(services));
+    })
+    .UseSerilog((context,services, configuration) =>
+        configuration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services));
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddValidatorsFromAssembly(Assembly.Load("Triepe.Domain"));
@@ -71,6 +63,7 @@ if (app.Environment.IsDevelopment())
        {
            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
        });
+    app.UseSerilogRequestLogging();
 }
 
 app.MapControllers();
