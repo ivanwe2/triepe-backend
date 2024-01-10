@@ -25,7 +25,7 @@ namespace Prime.Triepe.Api.Extenions
         public static IServiceCollection AddTriepeSwagger(this IServiceCollection services)
             => services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Triepe API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Triepe API", Version = "v0.1" });
             });
     }
 }
