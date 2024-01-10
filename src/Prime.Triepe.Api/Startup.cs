@@ -5,41 +5,32 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Prime.Triepe.Api.Extenions;
 using Serilog;
-using Serilog.Events;
-using System.Collections.Generic;
 using System.Reflection;
-
-//Log.Logger = new LoggerConfiguration()
-//    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-//    .Enrich.FromLogContext()
-//    .WriteTo.Console()
-//    .CreateBootstrapLogger();
+using Triepe.Api.AutofacModules;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host
-    .UseServiceProviderFactory(new AutofacServiceProviderFactory());
-    //.ConfigureContainer<ContainerBuilder>(autofacBuilder =>
-    //{
-    //    autofacBuilder.RegisterModule<ServicesModule>();
-    //    autofacBuilder.RegisterModule<RepositoriesModule>();
-    //    autofacBuilder.RegisterModule<FactoriesModule>();
-    //    autofacBuilder.RegisterModule<ExtensionsModule>();
-    //    autofacBuilder.RegisterModule<ProvidersModiule>();
-    //    autofacBuilder.RegisterModule<HelpersModule>();
-    //    autofacBuilder.RegisterModule<SeedersModule>();
-    //})
-    //.UseSerilog((context, services, configuration) =>
-    //    configuration
-    //      .ReadFrom.Configuration(context.Configuration)
-    //      .ReadFrom.Services(services));
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(autofacBuilder =>
+    {
+        autofacBuilder.RegisterModule<ServicesModule>();
+        autofacBuilder.RegisterModule<RepositoriesModule>();
+        autofacBuilder.RegisterModule<FactoriesModule>();
+        autofacBuilder.RegisterModule<ProvidersModule>();
+    })
+    .UseSerilog((context,services, configuration) =>
+        configuration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services));
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-//builder.Services.AddValidatorsFromAssembly(Assembly.Load("Prime.Progreso.Domain"));
+builder.Services.AddValidatorsFromAssembly(Assembly.Load("Triepe.Domain"));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddMvcOptions(options => options.SuppressAsyncSuffixInActionNames = false);
 //builder.Services.ConfigureCustomModelStateResponseFactory();
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -52,13 +43,14 @@ builder.Services.AddEndpointsApiExplorer()
                 .AddTriepeDbContext(builder.Configuration.GetConnectionString("Default"))
                 .AddCors()
                 .AddLogging()
-                .AddHttpContextAccessor();
+                .AddHttpContextAccessor()
+                .AddProblemDetails();
 
 //builder.Services.AddSwaggerGen(c => { c.EnableAnnotations(); });
 
 var app = builder.Build();
 
-//app.ConfigureCustomExceptionMiddleware();
+app.UseCustomExceptionMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -71,6 +63,7 @@ if (app.Environment.IsDevelopment())
        {
            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
        });
+    app.UseSerilogRequestLogging();
 }
 
 app.MapControllers();

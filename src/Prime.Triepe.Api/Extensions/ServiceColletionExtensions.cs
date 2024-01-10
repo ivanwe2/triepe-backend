@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Prime.Triepe.Data;
+using Triepe.Data;
+using Triepe.Data.Mapper;
 
 namespace Prime.Triepe.Api.Extenions
 {
@@ -17,7 +18,8 @@ namespace Prime.Triepe.Api.Extenions
             => services.AddAutoMapper(mc =>
                 {
                     mc.AddExpressionMapping();
-                    mc.AddProfile(new Data.Mapper.MapperProfile());
+                    mc.AddProfile(new PictureProfile());
+                    mc.AddProfile(new ProductProfile());
                 });
 
         public static IServiceCollection AddTriepeSwagger(this IServiceCollection services)

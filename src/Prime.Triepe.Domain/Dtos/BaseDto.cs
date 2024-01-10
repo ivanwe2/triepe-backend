@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prime.Triepe.Domain.Abstractions.Services
+namespace Triepe.Domain.Dtos
 {
-    public interface IDummyService
+    public class BaseDto
     {
+        public Guid Id { get; set; }
     }
 }

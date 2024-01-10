@@ -1,17 +1,22 @@
-﻿using Prime.Triepe.Domain.Dtos;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
+using Triepe.Domain.Pagination;
 
-namespace Prime.Triepe.Domain.Abstractions.Repositories
+namespace Triepe.Domain.Abstractions.Repositories
 {
     public interface IBaseRepository
     {
-        Task<TDto> GetByIdAsync<TDto>(Guid id);
-        Task<PaginatedResult<TDto>> GetAllAsync<TDto>(
-            int pageNumber, int pageSize, Expression<Func<TDto, bool>> filter = null);
-        Task<TDto> CreateAsync<TDto>(TDto dto);
-        Task UpdateAsync<TDto>(TDto dto);
+        Task<TOutput> GetByIdAsync<TOutput>(Guid id);
+        Task<PaginatedResult<TOutput>> GetPageAsync<TOutput>(
+           int pageNumber, int pageSize, Expression<Func<TOutput, bool>> filter = null);
+        Task<TOutput> CreateAsync<TInput, TOutput>(TInput dto);
+        Task UpdateAsync<TInput>(Guid id, TInput dto);
         Task DeleteAsync(Guid id);
+        Task<bool> HasAnyAsync(Guid id);
     }
+
 }

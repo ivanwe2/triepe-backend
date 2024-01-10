@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Prime.Triepe.Data;
+using Triepe.Api.Middleware;
+using Triepe.Data;
 
 namespace Prime.Triepe.Api.Extenions
 {
@@ -13,5 +14,8 @@ namespace Prime.Triepe.Api.Extenions
             var context = serviceScope.ServiceProvider.GetRequiredService<TriepeDbContext>();
             context.Database.Migrate();
         }
+
+        public static void UseCustomExceptionMiddleware(this IApplicationBuilder app)
+            => app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
 }
