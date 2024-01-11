@@ -49,7 +49,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Triepe API V1");
+});
 
 if (app.Environment.IsDevelopment())
 {
