@@ -25,7 +25,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet ./Triepe.sln restore
+      run: dotnet restore ./Triepe.sln
     - name: Build
       run: dotnet build ./Triepe.sln --configuration Release --no-restore
 
