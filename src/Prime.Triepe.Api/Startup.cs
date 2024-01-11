@@ -1,7 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +11,7 @@ using Triepe.Api.AutofacModules;
 using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Host
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(autofacBuilder =>
@@ -31,11 +31,6 @@ builder.Services.AddValidatorsFromAssembly(Assembly.Load("Triepe.Domain"));
 
 builder.Services.AddControllers()
     .AddMvcOptions(options => options.SuppressAsyncSuffixInActionNames = false);
-//builder.Services.ConfigureCustomModelStateResponseFactory();
-
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
-//                    options => builder.Configuration.Bind("JwtSettings", options));
 
 builder.Services.AddEndpointsApiExplorer()
                 .AddTriepeSwagger()
@@ -46,8 +41,6 @@ builder.Services.AddEndpointsApiExplorer()
                 .AddHttpContextAccessor()
                 .AddProblemDetails();
 
-//builder.Services.AddSwaggerGen(c => { c.EnableAnnotations(); });
-
 var app = builder.Build();
 
 app.UseCustomExceptionMiddleware();
@@ -55,14 +48,14 @@ app.UseCustomExceptionMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSwagger()
+    .UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+    });
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger()
-       .UseSwaggerUI(c =>
-       {
-           c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-       });
     app.UseSerilogRequestLogging();
 }
 
