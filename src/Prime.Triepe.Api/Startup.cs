@@ -31,11 +31,6 @@ builder.Services.AddValidatorsFromAssembly(Assembly.Load("Triepe.Domain"));
 
 builder.Services.AddControllers()
     .AddMvcOptions(options => options.SuppressAsyncSuffixInActionNames = false);
-//builder.Services.ConfigureCustomModelStateResponseFactory();
-
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
-//                    options => builder.Configuration.Bind("JwtSettings", options));
 
 builder.Services.AddEndpointsApiExplorer()
                 .AddTriepeSwagger()
