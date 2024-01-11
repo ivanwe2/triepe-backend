@@ -25,9 +25,9 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet ./Triepe.sln restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./Triepe.sln --configuration Release --no-restore
 
   test:
 
@@ -60,7 +60,7 @@ jobs:
           dotnet-version: 8.0.x
           
       - name: Publish
-        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        run: dotnet publish ./Triepe.sln -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       
       - name: Deploy
         uses: azure/webapps-deploy@v2
