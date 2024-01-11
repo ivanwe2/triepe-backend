@@ -48,11 +48,8 @@ app.UseCustomExceptionMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSwagger()
-    .UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-    });
+app.UseSwagger();
+app.UseSwaggerUI();
 
 if (app.Environment.IsDevelopment())
 {
