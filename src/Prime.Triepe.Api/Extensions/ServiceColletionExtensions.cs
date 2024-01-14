@@ -14,13 +14,6 @@ namespace Prime.Triepe.Api.Extenions
             => services.AddDbContext<TriepeDbContext>(
                 options => options.UseSqlServer(connString));
 
-        public static IServiceCollection AddTriepeRedisCache(this IServiceCollection services)
-            => services.AddStackExchangeRedisCache(options =>
-                {
-                    options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
-                    options.InstanceName = "SampleInstance";
-                });
-
         public static IServiceCollection AddTriepeAutomapper(this IServiceCollection services) 
             => services.AddAutoMapper(mc =>
                 {
