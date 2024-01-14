@@ -32,7 +32,7 @@ jobs:
         run: dotnet tool install -g dotnet-ef --version 8.0.0
 
       - name: bundle migrations 
-        run: dotnet ef migrations bundle --runtime linux-x64 -p src/Prime.Triepe.Data/Triepe.Data.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate
+        run: dotnet ef migrations bundle --runtime linux-x64 -p src/Prime.Triepe.Api/Triepe.Api.csproj -o ${{env.DOTNET_ROOT}}/myapp/migrate
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
